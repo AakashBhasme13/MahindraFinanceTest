@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,6 +14,12 @@ public class LoginPageTest {
 
 	public WebDriver driver;
 	public String loginUrl = "login page url";
+
+	public LoginPageTest(WebDriver driver) {
+
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
 
 	@FindBy(id = "username")
 	WebElement usernameInput;
@@ -137,8 +144,7 @@ public class LoginPageTest {
 
 		Assert.assertEquals(actualMessage, expectedMessage);
 
-		// Assume that user successfully recovered password by accessing entered email
-		// id
+		// Assume that user successfully recovered password by accessing entered email id
 
 		String actualUrl = driver.getCurrentUrl();
 		Assert.assertEquals(actualUrl, loginUrl);
